@@ -1,0 +1,24 @@
+$input-background-color: rgba(26, 26, 26, 0.75);
+$border-color: rgba(225, 225, 225, 0.75);
+$text-color: white;
+$focus-border-color: rgba(26, 26, 26, 0.75);
+$secondary-text-color: #999999;
+
+.input-form {
+  width: 280px;
+  //margin-bottom: 15px;
+  background-color: $input-background-color;
+  border-radius: 8px;
+  border: 0 solid $border-color;
+  padding: 10px;
+  color: $text-color;
+  font-size: 12px;
+  box-sizing: border-box;
+
+  &:focus {
+    border: 0.2px solid $focus-border-color;
+    outline: none;
+  }
+}
+
+

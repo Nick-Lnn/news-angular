@@ -1,0 +1,76 @@
+<div class="login-page">
+  <div class="dh-logo"></div>
+  <div class="sign-in-text">Register to Digital Harbor</div>
+  <div class="login-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <div class="label-form">Username</div>
+      <shared-form
+        formControlName="username"
+        type="text"
+        placeholder="Enter your username"
+        [required]="true"
+        id="username"
+      ></shared-form>
+      <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['required']" class="error-message">
+        Username is required
+      </div>
+      <div *ngIf="registerForm.get('username')?.errors?.['minlength']" class="error-message">Username must be at least 4 characters long</div>
+
+      <div class="label-form">First Name</div>
+      <shared-form
+        formControlName="firstName"
+        type="text"
+        placeholder="Enter your first name"
+        [required]="true"
+        id="firstName"
+      ></shared-form>
+      <div *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.errors?.['required']" class="error-message">
+        First name is required
+      </div>
+
+      <div class="label-form">Last Name</div>
+      <shared-form
+        formControlName="lastName"
+        type="text"
+        placeholder="Enter your last name"
+        [required]="true"
+        id="lastName"
+      ></shared-form>
+      <div *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.errors?.['required']" class="error-message">
+        Last name is required
+      </div>
+
+      <div class="label-form">Password</div>
+      <shared-form
+        formControlName="password"
+        type="password"
+        placeholder="Enter your password"
+        [required]="true"
+        id="password"
+      ></shared-form>
+      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-message">
+        Password must be at least 8 characters
+      </div>
+
+      <div class="label-form">Repeat your password</div>
+      <shared-form
+        formControlName="repeatPassword"
+        type="password"
+        placeholder="Repeat your password"
+        [required]="true"
+        id="repeatpassword"
+      ></shared-form>
+      <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('repeatPassword')?.touched" class="error-message">
+        Passwords do not match
+      </div>
+
+      <shared-button
+        [buttonText]="'Register'"
+        [disabled]="registerForm.invalid || isLoading"
+        (click)="onSubmit()"
+      ></shared-button>
+
+    </form>
+  </div>
+</div>

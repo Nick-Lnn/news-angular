@@ -1,0 +1,100 @@
+@import 'src/assets/styles/style';
+
+.login-page {
+  width: auto;
+  height: auto;
+  min-height: 100vh;
+  background-color: $background-color;
+  background-image: url("/assets/svg/abstract-background-login-page.svg");
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+  .dh-logo {
+    background-image: url("/assets/svg/DH-word-logo.svg");
+    width: 85px;
+    height: 85px;
+    min-height: 85px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  .sign-in-text {
+    color: $text-color;
+    font-size: 24px;
+  }
+
+  .login-container {
+    width: 350px;
+    background-color: $container-background-color;
+    border-radius: 16px;
+    padding: 10px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 18px;
+    margin-bottom: 15px;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .login-button {
+    margin-top: 20px;
+    width: 280px;
+  }
+
+  .label-form {
+    color: $secondary-text-color;
+    font-size: 14px;
+    margin: 15px 0 5px 17px;
+    align-self: flex-start;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .error-message {
+    color: $color-failed;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-left: 17px;
+    align-self: flex-start;
+  }
+
+  .success-message {
+    font-size: 12px;
+    color: $success-message;
+    background: $success-message-background-color;
+    padding: 10px 45px;
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+
+  .error-message-response {
+    font-size: 12px;
+    color: $error-message-response;
+    background: $error-message-background-color;
+    padding: 10px 25px;
+    border-radius: 6px;
+    margin-top: 10px;
+    width: 270px;
+  }
+
+  .loading-message{
+    font-size: 12px;
+    color: $loading-message;
+    background: $loading-message-background;
+    padding: 10px 45px;
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+}

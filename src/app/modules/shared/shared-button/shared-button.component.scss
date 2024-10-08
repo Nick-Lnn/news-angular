@@ -1,0 +1,28 @@
+$border-color: rgba(225, 225, 225, 0.75);
+$text-color: white;
+$background-color: #2f465d;
+$hover-background-color: #0056b3;
+$box-shadow-color: rgba(0, 0, 0, 0.2);
+
+.signin-button {
+  width: 280px;
+  height: 36px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  border: 0 solid $border-color;
+  border-radius: 16px;
+  font-size: 16px;
+  color: $text-color;
+  background-color: $background-color;
+  box-shadow: 0 4px 8px $box-shadow-color;
+  padding: 6px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: $hover-background-color;
+  }
+}
