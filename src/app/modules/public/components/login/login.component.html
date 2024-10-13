@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="login-page">
+  <div class="dh-logo"></div>
+  <div class="sign-in-text">Sign In to Digital Harbor</div>
+  <div class="login-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="label-form">Username</div>
+      <shared-form
+        formControlName="username"
+        [placeholder]="'Enter your username'"
+        [type]="'text'"
+        [required]="true"
+        id="username"
+      ></shared-form>
+
+      <div class="label-form">Password</div>
+      <shared-form
+        formControlName="password"
+        [placeholder]="'Enter your password'"
+        [type]="'password'"
+        [required]="true"
+        id="password"
+      ></shared-form>
+
+      <shared-button
+        [buttonText]="'LogIn'"
+        [disabled]=false
+        (click)="onSubmit()"
+      ></shared-button>
+
+    </form>
+  </div>
+</div>
