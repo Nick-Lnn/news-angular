@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MainViewComponent } from './view/main-view/main-view.component';
+import {PrivateRoutesModule} from "./routes/private-routes.module";
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    MainViewComponent,
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    PrivateRoutesModule,
   ]
 })
 export class PrivateModule { }
