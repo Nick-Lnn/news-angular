@@ -49,18 +49,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   private _initialize(): void {
     this._subscription.add(
       this._store.select(state => state.user).subscribe(userState => {
-        // Handle user state changes, e.g., registration success or failure
         this.isLoading = userState.loading;
-        // if (userState.error) {
-        //   // Handle error, maybe show an error message
-        //   console.error('Registration failed:', userState.error);
-        //   // You might want to add error handling logic here
-        // }
-        // if (userState.user) {
-        //   // Registration successful
-        //   console.log('Registration successful:', userState.user);
-        //   // You might want to navigate to another page or show a success message
-        // }
       })
     );
   }
