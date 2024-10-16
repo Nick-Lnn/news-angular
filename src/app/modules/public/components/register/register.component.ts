@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as UserActions from '../../../../store/actions/user.actions';
 import { UserState } from '../../../../store/reducers/user.reducer';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _store: Store<UserState>
+    private _store: Store<UserState>,
+    private _router: Router
+
   ) {
     this.registerForm = this._formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
@@ -44,6 +47,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
       const { username, firstName, lastName, password } = this.registerForm.value;
       this._store.dispatch(UserActions.registerUser({ username, firstName, lastName, password }));
     }
+  }
+
+  public redirectToLogIn(): void {
+    this._router.navigate(['/public/login'])
+      .then(() => {
+      })
+      .catch(() => {
+      });
   }
 
   private _initialize(): void {

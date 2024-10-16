@@ -97,4 +97,22 @@
     border-radius: 6px;
     margin-top: 10px;
   }
+
+  .dont-have-account {
+    padding: 15px 20px 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .account-creation-text {
+      font-size: 12px;
+      color: $tertiary-text-color;
+
+      .create-account-link {
+        color: $link-color;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
 }
