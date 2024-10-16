@@ -58,6 +58,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  public redirectToRegister(): void {
+    this._router.navigate(['/public/register'])
+      .then(() => {
+      })
+      .catch(() => {
+      });
+  }
+
   private _initialize(): void {
     // No need to subscribe here as we'll check after login attempt
   }
@@ -67,17 +75,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       this._store.select(fromUser.selectUser)
         .pipe(take(1))
         .subscribe(user => {
-          console.log('User state:', user);
           if (user && user.token) {
-            console.log('User logged in, redirecting...');
             this._store.dispatch(UserActions.fetchUserProfile());
             this._router.navigate(['/private/news']).then(() => {
-              console.log('Navigation complete');
             }).catch(error => {
               console.error('Navigation failed:', error);
             });
           } else {
-            console.log('User not logged in or token missing');
+            console.error('User not logged in or token missing');
           }
         })
     );

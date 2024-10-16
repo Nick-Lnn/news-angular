@@ -62,22 +62,11 @@
     }
   }
 
-  .login-other-social-media-container {
-    width: 350px;
-    height: auto;
-    background-color: $container-background-color;
-    border-radius: 16px;
+  .dont-have-account {
     padding: 15px 20px 15px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 15px;
-
-    .sign-in-with-text {
-      font-size: 12px;
-      color: $tertiary-text-color;
-      margin-bottom: 15px;
-    }
 
     .account-creation-text {
       font-size: 12px;
