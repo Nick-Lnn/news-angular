@@ -67,7 +67,7 @@
 
       <shared-button
         [buttonText]="'Register'"
-        [disabled]="registerForm.invalid || isLoading"
+        [disabled]="registerForm.invalid || (isLoading$ | async) || false"
         (click)="onSubmit()"
       ></shared-button>
 
