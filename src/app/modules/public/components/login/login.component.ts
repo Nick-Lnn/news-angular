@@ -4,7 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import * as UserActions from '../../../../store/actions/user.actions';
-import * as fromUser from '../../../../store/reducers/user.reducer';
+import * as UserSelectors from '../../../../store/selectors/user.selectors';
+import { AppState } from '../../../../store/app.state';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -27,15 +28,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _store: Store<fromUser.UserState>,
+    private _store: Store<AppState>,
     private _router: Router
   ) {
     this.loginForm = this._formBuilder.group({
       [this._FORM_CONTROLS.USERNAME]: ['', [Validators.required]],
       [this._FORM_CONTROLS.PASSWORD]: ['', [Validators.required]]
     });
-    this.isLoading$ = this._store.select(fromUser.selectIsLoading);
-    this.error$ = this._store.select(fromUser.selectError);
+    this.isLoading$ = this._store.select(UserSelectors.selectIsLoading);
+    this.error$ = this._store.select(UserSelectors.selectError);
   }
 
   ngOnInit(): void {
@@ -60,10 +61,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public redirectToRegister(): void {
     this._router.navigate(['/public/register'])
-      .then(() => {
-      })
-      .catch(() => {
-      });
+      .then(() => {})
+      .catch(() => {});
   }
 
   private _initialize(): void {
@@ -72,10 +71,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private _checkLoginStatusAndRedirect(): void {
     this._userSubscription.add(
-      this._store.select(fromUser.selectUser)
+      this._store.select(UserSelectors.selectToken)
         .pipe(take(1))
-        .subscribe(user => {
-          if (user && user.token) {
+        .subscribe(token => {
+          if (token) {
             this._store.dispatch(UserActions.fetchUserProfile());
             this._router.navigate(['/private/news']).then(() => {
             }).catch(error => {
