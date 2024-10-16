@@ -5,7 +5,7 @@ import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/opera
 import * as UserActions from '../actions/user.actions';
 import { UserService } from '../../services/user.service';
 import { Store } from '@ngrx/store';
-import { selectToken } from '../reducers/user.reducer';
+import { selectToken } from '../selectors/user.selectors';
 import {AppState} from "../app.state";
 
 @Injectable()

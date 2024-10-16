@@ -1,9 +1,9 @@
-import {createReducer, createSelector, on} from '@ngrx/store';
+import {createReducer, on} from '@ngrx/store';
 import * as UserActions from '../actions/user.actions';
-import {AppState} from "../app.state";
+import {User} from "../models/user.model";
 
 export interface UserState {
-  user: any;
+  user: User | null;
   token: string | null;
   error: string | null;
   loading: boolean;
@@ -46,13 +46,4 @@ export const userReducer = createReducer(
     error,
     loading: false
   }))
-);
-
-export const selectIsLoading = (state: UserState) => state.loading;
-export const selectError = (state: UserState) => state.error;
-export const selectUser = (state: UserState) => state.user;
-export const selectUserState = (state: AppState) => state.user;
-export const selectToken = createSelector(
-  selectUserState,
-  (state: UserState) => state.token
 );
