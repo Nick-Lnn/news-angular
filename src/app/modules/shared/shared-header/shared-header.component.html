@@ -9,14 +9,13 @@
         <img [src]="getAvatarUrl()" alt="User avatar">
       </button>
       <div class="dropdown-menu" *ngIf="isDropdownOpen">
-        <div class="dropdown-text">{{ (user$ | async)?.username }}</div>
+        <div class="dropdown-text">@{{ (user$ | async)?.username }}</div>
         <div class="long-line"></div>
-<!--        <button class="dropdown-button" (click)="onLogout()">-->
-        <button class="dropdown-button">
+
+        <button class="dropdown-button" (click)="onLogout()">
           <img src="/assets/svg/log-out.svg" alt="Log out icon" class="log-out-icon">
           Sign Out
         </button>
-
 
         <div class="short-line"></div>
       </div>

@@ -25,6 +25,8 @@ export const loginUserSuccess = createAction(
   props<{ token: string }>()
 );
 
+export const logoutUser = createAction('[User] Logout User');
+
 export const loginUserFailure = createAction(
   '[User] Login User Failure',
   props<{ error: string }>()

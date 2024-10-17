@@ -36,6 +36,13 @@ export const userReducer = createReducer(
     error,
     loading: false
   })),
+  on(UserActions.logoutUser, state => ({
+    ...state,
+    user: null,
+    token: null,
+    error: null,
+    loading: false
+  })),
 
   on(UserActions.fetchUserProfile, state => ({ ...state, loading: true })),
   on(UserActions.fetchUserProfileSuccess, (state, { user }) => ({

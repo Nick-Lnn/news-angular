@@ -4,7 +4,9 @@ import { Observable, Subscription } from 'rxjs';
 import { User } from "../../../store/models/user.model";
 import { AppState } from '../../../store/app.state';
 import * as fromUser from '../../../store/selectors/user.selectors';
+import * as UserActions from '../../../store/actions/user.actions';
 import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'shared-header',
@@ -22,7 +24,10 @@ export class SharedHeaderComponent implements OnInit, OnDestroy {
 
   private _userSubscription: Subscription = new Subscription();
 
-  constructor(private _store: Store<AppState>) {
+  constructor(
+    private _store: Store<AppState>,
+    private _router: Router
+  ) {
     this.user$ = this._store.select(fromUser.selectUser).pipe(
       tap(user => console.log('User in shared header:', user))
     );
@@ -45,10 +50,19 @@ export class SharedHeaderComponent implements OnInit, OnDestroy {
     return `assets/images/${this._selectedAvatarImage}`;
   }
 
-  // Uncomment and implement this method when you're ready to add logout functionality
-  // public onLogout(): void {
-  //   // Implement logout logic here
-  // }
+  public onLogout(): void {
+    // Clear the token from localStorage
+    localStorage.removeItem('auth_token');
+
+    // Dispatch the logout action
+    this._store.dispatch(UserActions.logoutUser());
+
+    // Close the dropdown
+    this.isDropdownOpen = false;
+
+    // Navigate to the login page
+    this._router.navigate(['/public/login']);
+  }
 
   private _initialize(): void {
     this._userSubscription = this.user$.subscribe();
