@@ -9,6 +9,7 @@ import {UserEffects} from "./store/effects/user.effects";
 import { HttpClientModule } from '@angular/common/http';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
+import {AuthGuard} from "./guards/auth.guard";
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import {environment} from "../environments/environment";
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
