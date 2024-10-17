@@ -7,13 +7,15 @@ export interface UserState {
   token: string | null;
   error: string | null;
   loading: boolean;
+  authChecked: boolean;
 }
 
 export const initialState: UserState = {
   user: null,
   token: null,
   error: null,
-  loading: false
+  loading: false,
+  authChecked: false
 };
 
 export const userReducer = createReducer(
@@ -34,6 +36,7 @@ export const userReducer = createReducer(
     error,
     loading: false
   })),
+
   on(UserActions.fetchUserProfile, state => ({ ...state, loading: true })),
   on(UserActions.fetchUserProfileSuccess, (state, { user }) => ({
     ...state,
@@ -45,5 +48,17 @@ export const userReducer = createReducer(
     ...state,
     error,
     loading: false
+  })),
+
+  on(UserActions.checkAuth, state => ({ ...state, loading: true })),
+  on(UserActions.setToken, (state, { token }) => ({
+    ...state,
+    token,
+    loading: false
+  })),
+  on(UserActions.authCheckComplete, state => ({
+    ...state,
+    loading: false,
+    authChecked: true
   }))
 );

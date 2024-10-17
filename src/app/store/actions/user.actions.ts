@@ -41,3 +41,12 @@ export const fetchUserProfileFailure = createAction(
   '[User] Fetch User Profile Failure',
   props<{ error: string }>()
 );
+
+export const checkAuth = createAction('[User] Check Auth');
+
+export const setToken = createAction(
+  '[User] Set Token',
+  props<{ token: string }>()
+);
+
+export const authCheckComplete = createAction('[User] Auth Check Complete');

@@ -10,6 +10,9 @@ import {AppState} from "../app.state";
 
 @Injectable()
 export class UserEffects {
+
+  private readonly _TOKEN_KEY: string = 'auth_token';
+
   registerUser$ = createEffect(() =>
     this._actions$.pipe(
       ofType(UserActions.registerUser),
@@ -27,7 +30,10 @@ export class UserEffects {
       ofType(UserActions.loginUser),
       switchMap(({ username, password }) =>
         this._userService.loginUser({ username, password }).pipe(
-          map(response => UserActions.loginUserSuccess({ token: response.token })),
+          map(response => {
+            localStorage.setItem(this._TOKEN_KEY, response.token);
+            return UserActions.loginUserSuccess({ token: response.token });
+          }),
           catchError(error => of(UserActions.loginUserFailure({ error: error.message })))
         )
       )
@@ -47,6 +53,31 @@ export class UserEffects {
           catchError(error => of(UserActions.fetchUserProfileFailure({ error: error.message })))
         );
       })
+    )
+  );
+
+  checkAuth$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(UserActions.checkAuth),
+      map(() => {
+        const token = localStorage.getItem(this._TOKEN_KEY);
+        if (token) {
+          return UserActions.setToken({ token });
+        }
+        return UserActions.authCheckComplete();
+      })
+    )
+  );
+
+  fetchUserProfileOnTokenSet$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(UserActions.setToken),
+      switchMap(({ token }) =>
+        this._userService.fetchUserProfile(token).pipe(
+          map(user => UserActions.fetchUserProfileSuccess({ user })),
+          catchError(error => of(UserActions.fetchUserProfileFailure({ error: error.message })))
+        )
+      )
     )
   );
 
