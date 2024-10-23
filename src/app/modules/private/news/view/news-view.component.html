@@ -22,6 +22,11 @@
 </div>
 
 <!-- Bulletins -->
+<div class="news-container">
+  <!-- ... (previous code for post container remains the same) ... -->
+</div>
+
+<!-- Bulletins -->
 <div class="news-container bulletins-container">
   <div *ngFor="let bulletin of bulletins" class="post-container bulletin-container">
     <div class="post-container__avatar-column">
@@ -29,6 +34,10 @@
     </div>
     <div class="post-container__content-column">
       <div class="post-form">
+        <div class="bulletin-header">
+          <span class="bulletin-username">{{ bulletin.senderUsername }}</span>
+          <span class="bulletin-date">{{ bulletin.createdDate }}</span>
+        </div>
         <p class="post-form__input">{{ bulletin.body }}</p>
         <div class="post-actions">
           <button type="button" class="post-actions__submit" (click)="onReply(bulletin.id)">Reply</button>

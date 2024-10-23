@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../store/app.state';
 import { Observable } from 'rxjs';
 import { User } from '../../../../store/models/user.model';
-import { NewsService } from '../../../../services/news.service';
+import {BulletinData, NewsService} from '../../../../services/news.service';
 import {Bulletin} from "../../../../store/models/bulletin.model";
 
 @Component({
@@ -59,19 +59,24 @@ export class NewsViewComponent implements OnInit {
     if (this.postForm.valid) {
       this.user$.subscribe(user => {
         if (user) {
-          const bulletinData = {
+          const bulletinData: BulletinData = {
             content: this.postForm.get('content')?.value,
-            fileIds: this.selectedFiles
+            fileIds: this.selectedFiles,
+            senderUsername: user.username
           };
+
+          console.log('Sending bulletin data:', bulletinData);
+
           this._newsService.createBulletin(bulletinData, user.accountId, user.id).subscribe(
             response => {
               console.log('Bulletin created:', response);
               this.postForm.reset();
               this.selectedFiles = [];
-              this.loadBulletins(); // Reload bulletins after creating a new one
+              this.loadBulletins(); // Refresh the bulletins list
             },
             error => {
               console.error('Error creating bulletin:', error);
+              // Handle error (e.g., show an error message to the user)
             }
           );
         }
@@ -84,8 +89,11 @@ export class NewsViewComponent implements OnInit {
       (response: any) => {
         this.bulletins = response.content.map((bulletin: any) => ({
           ...bulletin,
-          avatar: this._getRandomAvatarImage()
+          avatar: this._getRandomAvatarImage(),
+          createdDate: new Date(bulletin.createdDate).toLocaleString(),
+          senderUsername: bulletin.senderUsername || 'Unknown User' // Ensure this property exists
         }));
+        console.log('Loaded bulletins:', this.bulletins); // Add this line for debugging
       },
       error => {
         console.error('Error loading bulletins:', error);

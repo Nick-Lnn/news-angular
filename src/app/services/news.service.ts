@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface BulletinData {
+  content: string;
+  fileIds?: string[];
+  senderUsername: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +16,7 @@ export class NewsService {
 
   constructor(private _http: HttpClient) {}
 
-  public createBulletin(bulletinData: any, accountId: number, userId: number): Observable<any> {
+  public createBulletin(bulletinData: BulletinData, accountId: number, userId: number): Observable<any> {
     const headers = new HttpHeaders({
       'Account-ID': accountId.toString(),
       'User-ID': userId.toString()
