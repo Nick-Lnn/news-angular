@@ -62,7 +62,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   private _initialize(): void {
-    // You can add any additional initialization logic here if needed
   }
 
   private _finalize(): void {

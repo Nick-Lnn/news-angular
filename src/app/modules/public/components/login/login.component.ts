@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       const { username, password } = this.loginForm.value;
       this._store.dispatch(UserActions.loginUser({ username, password }));
 
-      // Check for successful login and redirect after a short delay
       setTimeout(() => {
         this._checkLoginStatusAndRedirect();
       }, 500);
