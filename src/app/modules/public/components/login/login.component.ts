@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private _initialize(): void {
-    // No need to subscribe here as we'll check after login attempt
   }
 
   private _checkLoginStatusAndRedirect(): void {
