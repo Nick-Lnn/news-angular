@@ -10,10 +10,10 @@ export class NewsService {
 
   constructor(private _http: HttpClient) {}
 
-  public createBulletin(bulletinData: any, accountId: number): Observable<any> {
+  public createBulletin(bulletinData: any, accountId: number, userId: number): Observable<any> {
     const headers = new HttpHeaders({
       'Account-ID': accountId.toString(),
-      'User-ID': accountId.toString() // Assuming user ID is the same as account ID
+      'User-ID': userId.toString()
     });
 
     return this._http.post(`${this._API_URL}/bulletins`, bulletinData, { headers });

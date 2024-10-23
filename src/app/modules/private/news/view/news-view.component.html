@@ -25,7 +25,7 @@
 <div class="news-container bulletins-container">
   <div *ngFor="let bulletin of bulletins" class="post-container bulletin-container">
     <div class="post-container__avatar-column">
-      <img [src]="getAvatarUrl()" alt="User Avatar" class="avatar">
+      <img [src]="'assets/images/' + bulletin.avatar" alt="User Avatar" class="avatar">
     </div>
     <div class="post-container__content-column">
       <div class="post-form">

@@ -5,6 +5,7 @@ import { AppState } from '../../../../store/app.state';
 import { Observable } from 'rxjs';
 import { User } from '../../../../store/models/user.model';
 import { NewsService } from '../../../../services/news.service';
+import {Bulletin} from "../../../../store/models/bulletin.model";
 
 @Component({
   selector: 'app-news-view',
@@ -15,7 +16,7 @@ export class NewsViewComponent implements OnInit {
   public postForm: FormGroup;
   public user$: Observable<User | null>;
   private selectedFiles: string[] = [];
-  public bulletins: any[] = []; // To store the list of bulletins
+  public bulletins: Bulletin[] = []; // To store the list of bulletins
 
   private readonly _avatarImages: string[] = [
     'man.png', 'man2.png', 'woman.png', 'woman2.png', 'animal.png'
@@ -62,7 +63,7 @@ export class NewsViewComponent implements OnInit {
             content: this.postForm.get('content')?.value,
             fileIds: this.selectedFiles
           };
-          this._newsService.createBulletin(bulletinData, user.accountId).subscribe(
+          this._newsService.createBulletin(bulletinData, user.accountId, user.id).subscribe(
             response => {
               console.log('Bulletin created:', response);
               this.postForm.reset();
@@ -81,7 +82,10 @@ export class NewsViewComponent implements OnInit {
   private loadBulletins(): void {
     this._newsService.listBulletins().subscribe(
       (response: any) => {
-        this.bulletins = response.content;
+        this.bulletins = response.content.map((bulletin: any) => ({
+          ...bulletin,
+          avatar: this._getRandomAvatarImage()
+        }));
       },
       error => {
         console.error('Error loading bulletins:', error);
