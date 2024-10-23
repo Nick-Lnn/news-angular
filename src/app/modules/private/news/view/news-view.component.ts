@@ -107,10 +107,10 @@ export class NewsViewComponent implements OnInit {
         this.bulletins = response.content.map((bulletin: any) => ({
           id: bulletin.id,
           senderUsername: bulletin.senderUsername || 'Unknown User',
-          body: bulletin.body, // Change 'body' to 'content' if that's what the API returns
+          body: bulletin.body,
           createdDate: new Date(bulletin.createdDate).toLocaleString(),
           avatar: this._getRandomAvatarImage(),
-          fileIds: bulletin.fileIds || [] // Ensure fileIds is always an array
+          fileIds: bulletin.fileIds || []
         }));
       },
       error => {
