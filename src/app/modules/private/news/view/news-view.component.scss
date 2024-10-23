@@ -64,6 +64,28 @@
   border-radius: 50%;
 }
 
+.file-attachments {
+  margin-top: 10px;
+}
+
+.file-attachment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.file-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.file-name {
+  font-size: 14px;
+  color: $secondary-text-color;
+}
+
 .post-form {
   &__input {
     width: 100%;
@@ -72,7 +94,7 @@
     color: $text-color;
     font-size: 16px;
     resize: none;
-    min-height: 80px;
+    min-height: 60px;
 
     &::placeholder {
       color: $secondary-text-color;

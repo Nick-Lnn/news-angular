@@ -5,7 +5,6 @@ import { User } from "../../../store/models/user.model";
 import { AppState } from '../../../store/app.state';
 import * as fromUser from '../../../store/selectors/user.selectors';
 import * as UserActions from '../../../store/actions/user.actions';
-import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
@@ -28,9 +27,7 @@ export class SharedHeaderComponent implements OnInit, OnDestroy {
     private _store: Store<AppState>,
     private _router: Router
   ) {
-    this.user$ = this._store.select(fromUser.selectUser).pipe(
-      tap(user => console.log('User in shared header:', user))
-    );
+    this.user$ = this._store.select(fromUser.selectUser);
     this._selectedAvatarImage = this._getRandomAvatarImage();
   }
 

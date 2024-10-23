@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../store/app.state';
 import { Observable } from 'rxjs';
 import { User } from '../../../../store/models/user.model';
-import {BulletinData, NewsService} from '../../../../services/news.service';
-import {Bulletin} from "../../../../store/models/bulletin.model";
+import { BulletinData, NewsService } from '../../../../services/news.service';
+import { Bulletin } from "../../../../store/models/bulletin.model";
 
 @Component({
   selector: 'app-news-view',
@@ -15,8 +15,8 @@ import {Bulletin} from "../../../../store/models/bulletin.model";
 export class NewsViewComponent implements OnInit {
   public postForm: FormGroup;
   public user$: Observable<User | null>;
-  private selectedFiles: string[] = [];
-  public bulletins: Bulletin[] = []; // To store the list of bulletins
+  private _selectedFiles: string[] = [];
+  public bulletins: Bulletin[] = [];
 
   private readonly _avatarImages: string[] = [
     'man.png', 'man2.png', 'woman.png', 'woman2.png', 'animal.png'
@@ -36,22 +36,36 @@ export class NewsViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadBulletins();
+    this._loadBulletins();
   }
 
   public getAvatarUrl(): string {
     return `assets/images/${this._selectedAvatarImage}`;
   }
 
-  private _getRandomAvatarImage(): string {
-    const randomIndex = Math.floor(Math.random() * this._avatarImages.length);
-    return this._avatarImages[randomIndex];
+  public getFileIcon(fileId: string): string {
+    const extension = fileId.split('.').pop()?.toLowerCase();
+    switch (extension) {
+      case 'pdf':
+        return 'assets/svg/pdf-file.svg';
+      case 'jpg':
+      case 'jpeg':
+        return 'assets/svg/jpg-file.svg';
+      case 'png':
+        return 'assets/svg/png-file.svg';
+      default:
+        return 'assets/svg/document.svg';
+    }
+  }
+
+  public getFileName(fileId: string): string {
+    return fileId.split('/').pop() || fileId;
   }
 
   public onFileAttach(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      this.selectedFiles = Array.from(input.files).map(file => file.name);
+      this._selectedFiles = Array.from(input.files).map(file => file.name);
     }
   }
 
@@ -61,22 +75,17 @@ export class NewsViewComponent implements OnInit {
         if (user) {
           const bulletinData: BulletinData = {
             content: this.postForm.get('content')?.value,
-            fileIds: this.selectedFiles,
+            fileIds: this._selectedFiles,
             senderUsername: user.username
           };
 
-          console.log('Sending bulletin data:', bulletinData);
-
           this._newsService.createBulletin(bulletinData, user.accountId, user.id).subscribe(
-            response => {
-              console.log('Bulletin created:', response);
+            () => {
               this.postForm.reset();
-              this.selectedFiles = [];
-              this.loadBulletins(); // Refresh the bulletins list
+              this._selectedFiles = [];
+              this._loadBulletins();
             },
             error => {
-              console.error('Error creating bulletin:', error);
-              // Handle error (e.g., show an error message to the user)
             }
           );
         }
@@ -84,25 +93,28 @@ export class NewsViewComponent implements OnInit {
     }
   }
 
-  private loadBulletins(): void {
+  public onReply(bulletinId: number): void {
+  }
+
+  private _getRandomAvatarImage(): string {
+    const randomIndex = Math.floor(Math.random() * this._avatarImages.length);
+    return this._avatarImages[randomIndex];
+  }
+
+  private _loadBulletins(): void {
     this._newsService.listBulletins().subscribe(
       (response: any) => {
         this.bulletins = response.content.map((bulletin: any) => ({
-          ...bulletin,
-          avatar: this._getRandomAvatarImage(),
+          id: bulletin.id,
+          senderUsername: bulletin.senderUsername || 'Unknown User',
+          body: bulletin.body, // Change 'body' to 'content' if that's what the API returns
           createdDate: new Date(bulletin.createdDate).toLocaleString(),
-          senderUsername: bulletin.senderUsername || 'Unknown User' // Ensure this property exists
+          avatar: this._getRandomAvatarImage(),
+          fileIds: bulletin.fileIds || [] // Ensure fileIds is always an array
         }));
-        console.log('Loaded bulletins:', this.bulletins); // Add this line for debugging
       },
       error => {
-        console.error('Error loading bulletins:', error);
       }
     );
-  }
-
-  public onReply(bulletinId: number): void {
-    // Implement reply functionality here
-    console.log('Reply to bulletin:', bulletinId);
   }
 }

@@ -4,4 +4,5 @@ export interface Bulletin {
   avatar: string;
   createdDate: string;
   senderUsername: string;
+  fileIds: string[];
 }

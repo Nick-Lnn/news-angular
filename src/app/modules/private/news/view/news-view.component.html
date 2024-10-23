@@ -39,6 +39,16 @@
           <span class="bulletin-date">{{ bulletin.createdDate }}</span>
         </div>
         <p class="post-form__input">{{ bulletin.body }}</p>
+        <div *ngIf="bulletin.fileIds && bulletin.fileIds.length > 0" class="file-attachments">
+          <div *ngFor="let fileId of bulletin.fileIds" class="file-attachment">
+            <img
+              [src]="getFileIcon(fileId)"
+              alt="File icon"
+              class="file-icon"
+            >
+            <span class="file-name">{{ getFileName(fileId) }}</span>
+          </div>
+        </div>
         <div class="post-actions">
           <button type="button" class="post-actions__submit" (click)="onReply(bulletin.id)">Reply</button>
         </div>
