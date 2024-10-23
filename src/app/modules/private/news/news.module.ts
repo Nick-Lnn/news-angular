@@ -7,6 +7,9 @@ import {NewsRoutingModule} from "./routes/news-routing.module";
 
 @NgModule({
   declarations: [NewsViewComponent],
+  exports: [
+    NewsViewComponent
+  ],
   imports: [
     CommonModule,
     NewsRoutingModule

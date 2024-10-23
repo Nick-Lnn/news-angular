@@ -1,1 +1,19 @@
-<p>news-view works!</p>
+<div class="news-container">
+  <div class="post-container">
+    <div class="post-container__avatar-column">
+      <img [src]="getAvatarUrl()" alt="User Avatar" class="avatar">
+    </div>
+    <div class="post-container__content-column">
+      <form class="post-form">
+        <textarea placeholder="What's happening?" class="post-form__input"></textarea>
+      </form>
+      <div class="post-actions">
+        <button class="post-actions__attach">
+          <img src="assets/svg/document.svg" alt="Attach" class="post-actions__attach-icon">
+        </button>
+        <button class="post-actions__submit">Post</button>
+      </div>
+    </div>
+  </div>
+  <!-- Placeholder for future posts -->
+</div>
