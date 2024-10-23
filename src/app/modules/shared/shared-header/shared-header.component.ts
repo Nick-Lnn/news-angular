@@ -48,16 +48,12 @@ export class SharedHeaderComponent implements OnInit, OnDestroy {
   }
 
   public onLogout(): void {
-    // Clear the token from localStorage
     localStorage.removeItem('auth_token');
 
-    // Dispatch the logout action
     this._store.dispatch(UserActions.logoutUser());
 
-    // Close the dropdown
     this.isDropdownOpen = false;
 
-    // Navigate to the login page
     this._router.navigate(['/public/login']);
   }
 
