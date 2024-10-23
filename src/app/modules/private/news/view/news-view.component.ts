@@ -15,6 +15,7 @@ export class NewsViewComponent implements OnInit {
   public postForm: FormGroup;
   public user$: Observable<User | null>;
   private selectedFiles: string[] = [];
+  public bulletins: any[] = []; // To store the list of bulletins
 
   private readonly _avatarImages: string[] = [
     'man.png', 'man2.png', 'woman.png', 'woman2.png', 'animal.png'
@@ -34,6 +35,7 @@ export class NewsViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadBulletins();
   }
 
   public getAvatarUrl(): string {
@@ -65,6 +67,7 @@ export class NewsViewComponent implements OnInit {
               console.log('Bulletin created:', response);
               this.postForm.reset();
               this.selectedFiles = [];
+              this.loadBulletins(); // Reload bulletins after creating a new one
             },
             error => {
               console.error('Error creating bulletin:', error);
@@ -73,5 +76,21 @@ export class NewsViewComponent implements OnInit {
         }
       });
     }
+  }
+
+  private loadBulletins(): void {
+    this._newsService.listBulletins().subscribe(
+      (response: any) => {
+        this.bulletins = response.content;
+      },
+      error => {
+        console.error('Error loading bulletins:', error);
+      }
+    );
+  }
+
+  public onReply(bulletinId: number): void {
+    // Implement reply functionality here
+    console.log('Reply to bulletin:', bulletinId);
   }
 }

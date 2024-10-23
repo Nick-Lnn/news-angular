@@ -18,4 +18,8 @@ export class NewsService {
 
     return this._http.post(`${this._API_URL}/bulletins`, bulletinData, { headers });
   }
+
+  listBulletins(page: number = 0, size: number = 10): Observable<any> {
+    return this._http.get(`${this._API_URL}/bulletins?page=${page}&size=${size}`);
+  }
 }

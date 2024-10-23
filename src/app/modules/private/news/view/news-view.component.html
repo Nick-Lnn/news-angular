@@ -1,20 +1,39 @@
 <div class="news-container">
-  <div class="post-container">
+  <div class="post-border">
+  <!-- Post container -->
+    <div class="post-container">
+      <div class="post-container__avatar-column">
+        <img [src]="getAvatarUrl()" alt="User Avatar" class="avatar">
+      </div>
+      <div class="post-container__content-column">
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="post-form">
+          <textarea formControlName="content" placeholder="What's happening?" class="post-form__input"></textarea>
+          <div class="post-actions">
+            <button type="button" class="post-actions__attach" (click)="fileInput.click()">
+              <img src="assets/svg/document.svg" alt="Attach" class="post-actions__attach-icon">
+            </button>
+            <input type="file" #fileInput style="display: none" (change)="onFileAttach($event)" multiple>
+            <button type="submit" class="post-actions__submit" [disabled]="postForm.invalid">Post</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bulletins -->
+<div class="news-container bulletins-container">
+  <div *ngFor="let bulletin of bulletins" class="post-container bulletin-container">
     <div class="post-container__avatar-column">
       <img [src]="getAvatarUrl()" alt="User Avatar" class="avatar">
     </div>
     <div class="post-container__content-column">
-      <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="post-form">
-        <textarea formControlName="content" placeholder="What's happening?" class="post-form__input"></textarea>
+      <div class="post-form">
+        <p class="post-form__input">{{ bulletin.body }}</p>
         <div class="post-actions">
-          <button type="button" class="post-actions__attach" (click)="fileInput.click()">
-            <img src="assets/svg/document.svg" alt="Attach" class="post-actions__attach-icon">
-          </button>
-          <input type="file" #fileInput style="display: none" (change)="onFileAttach($event)" multiple>
-          <button type="submit" class="post-actions__submit" [disabled]="postForm.invalid">Post</button>
+          <button type="button" class="post-actions__submit" (click)="onReply(bulletin.id)">Reply</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
-  <!-- Placeholder for future posts -->
 </div>
