@@ -4,15 +4,16 @@
       <img [src]="getAvatarUrl()" alt="User Avatar" class="avatar">
     </div>
     <div class="post-container__content-column">
-      <form class="post-form">
-        <textarea placeholder="What's happening?" class="post-form__input"></textarea>
+      <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="post-form">
+        <textarea formControlName="content" placeholder="What's happening?" class="post-form__input"></textarea>
+        <div class="post-actions">
+          <button type="button" class="post-actions__attach" (click)="fileInput.click()">
+            <img src="assets/svg/document.svg" alt="Attach" class="post-actions__attach-icon">
+          </button>
+          <input type="file" #fileInput style="display: none" (change)="onFileAttach($event)" multiple>
+          <button type="submit" class="post-actions__submit" [disabled]="postForm.invalid">Post</button>
+        </div>
       </form>
-      <div class="post-actions">
-        <button class="post-actions__attach">
-          <img src="assets/svg/document.svg" alt="Attach" class="post-actions__attach-icon">
-        </button>
-        <button class="post-actions__submit">Post</button>
-      </div>
     </div>
   </div>
   <!-- Placeholder for future posts -->

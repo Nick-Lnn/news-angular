@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {NewsViewComponent} from "./view/news-view.component";
 import {NewsRoutingModule} from "./routes/news-routing.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -12,7 +13,8 @@ import {NewsRoutingModule} from "./routes/news-routing.module";
   ],
   imports: [
     CommonModule,
-    NewsRoutingModule
+    NewsRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class NewsModule { }
